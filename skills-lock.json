@@ -18,6 +18,12 @@
       "sourceType": "github",
       "skillPath": "higgsfield-soul-id/SKILL.md",
       "computedHash": "bf7a7af7614d3b84161216b8e3331307beca4c3a6e3087fcccefde274c0dece4"
+    },
+    "trichter-skill": {
+      "source": "jesus-tc/demo-tc-organic",
+      "sourceType": "github",
+      "skillPath": "trichter-skill/SKILL.md",
+      "computedHash": "586e0790bf2cabfbe1fe4d10d141b2690bc977df6ac9ad4c25dc7c31a39f1a8a"
     }
   }
 }

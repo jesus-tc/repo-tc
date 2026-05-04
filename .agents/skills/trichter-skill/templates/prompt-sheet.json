@@ -1,0 +1,57 @@
+{
+  "_comment": "Template de prompts.json — output de Fase 3A. Listo para Higgsfield MCP.",
+  "_brand_palette": {
+    "primary_dark": "#0f1014",
+    "primary_accent": "#d7ae49",
+    "secondary_neutral_dark": "#333333",
+    "secondary_neutral_light": "#ffffff"
+  },
+  "_style_baseline": "minimalista corporativo, espacio negativo, composición geométrica, paleta Trichter (negro y dorado), tipografía Poppins si hay texto en imagen, aire premium pero no aspiracional vacío, fotografía o render arquitectónico de alta calidad, sin stock típico de agencia",
+  "pieces": [
+    {
+      "id": "TC-2026-05-04-001",
+      "format": "single",
+      "model": "nano_banana_2",
+      "aspect_ratio": "1:1",
+      "resolution": "2K",
+      "prompt": "[Prompt detallado: escena, composición, paleta Trichter, mood, espacio negativo si requiere texto encima, referencias estilísticas, qué NO incluir]",
+      "negative_prompt": "stock photo genérica, sonrisas forzadas corporativas, gráficos cliché de agencia, colores fuera de paleta",
+      "notes": "[Cualquier consideración especial: si necesita persona usar soul_2, si requiere espacio para texto en cuadrante superior, etc.]"
+    },
+    {
+      "id": "TC-2026-05-04-002",
+      "format": "carousel",
+      "model": "nano_banana_2",
+      "aspect_ratio": "1:1",
+      "resolution": "2K",
+      "carousel_coherence": "Misma paleta Trichter en las 4 slides. Composición geométrica consistente. Variación en escena pero mismo lenguaje visual.",
+      "slides": [
+        {
+          "slide_number": 1,
+          "role": "hook",
+          "prompt": "[Prompt slide 1 — visual de impacto que acompaña el hook]",
+          "negative_prompt": "..."
+        },
+        {
+          "slide_number": 2,
+          "role": "desarrollo",
+          "prompt": "[Prompt slide 2]",
+          "negative_prompt": "..."
+        },
+        {
+          "slide_number": 3,
+          "role": "desarrollo",
+          "prompt": "[Prompt slide 3]",
+          "negative_prompt": "..."
+        },
+        {
+          "slide_number": 4,
+          "role": "cierre + CTA visual",
+          "prompt": "[Prompt slide 4 — debe poder llevar logo/CTA]",
+          "negative_prompt": "..."
+        }
+      ],
+      "notes": "..."
+    }
+  ]
+}
