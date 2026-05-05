@@ -10,11 +10,11 @@
 
 ## Matriz
 
-| ID | Ángulo aprobado | Pain point | Formato | Mood | Hook propuesto | Justificación |
-|---|---|---|---|---|---|---|
-| TC-[fecha]-001 | [ángulo] | [pain] | Carrusel 4 slides | Dato-impactante | "[hook < 80 chars]" | [por qué esta combo funciona para esta audiencia] |
-| TC-[fecha]-002 | ... | ... | Single | Técnico-limpio | "..." | ... |
-| TC-[fecha]-003 | ... | ... | Carrusel 5 slides | Humano-cercano | "..." | ... |
+| ID | Ángulo aprobado | Pain point | Formato | Mood | Red | Hook propuesto | Justificación |
+|---|---|---|---|---|---|---|---|
+| TC-[fecha]-001 | [ángulo] | [pain] | Carrusel 4 slides | Dato-impactante | Ambas | "[hook < 80 chars]" | [por qué esta combo funciona para esta audiencia] |
+| TC-[fecha]-002 | ... | ... | Single | Técnico-limpio | LinkedIn | "..." | ... |
+| TC-[fecha]-003 | ... | ... | Carrusel 5 slides | Humano-cercano | Instagram | "..." | ... |
 
 ## Notas
 

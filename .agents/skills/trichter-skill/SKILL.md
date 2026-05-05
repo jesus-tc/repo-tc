@@ -1,264 +1,315 @@
 ---
 name: trichter-content-research
-description: Use this skill when the user wants to generate LinkedIn organic content for Trichter Consulting (real estate growth partner LATAM). Triggers on requests like "armemos contenido para Trichter", "necesito posts para LinkedIn de Trichter", "research de tendencias inmobiliarias", "creemos un carrusel sobre [tema]", or "generemos un batch de imágenes para Higgsfield". The skill orchestrates a 5-phase pipeline with human approval gates: research (Playwright + web), concept matrix, prompt + copy generation, Higgsfield batch execution, and delivery with A/B recommendations. Designed for Spanish (neutral LATAM) B2B content targeting real estate developers in Mexico, Argentina, and Uruguay.
+description: Use this skill when the user wants to generate organic content for Trichter Consulting (real estate growth partner LATAM) for LinkedIn and/or Instagram. Triggers on requests like "armemos contenido para Trichter", "necesito posts para LinkedIn de Trichter", "creemos posts para Instagram", "research de tendencias inmobiliarias", "creemos un carrusel sobre [tema]", or "generemos un batch de imágenes para Higgsfield". The skill orchestrates a 5-phase pipeline with human approval gates: research (Playwright + web), concept matrix, prompt + copy generation (LinkedIn + Instagram), Higgsfield batch execution, and delivery with A/B recommendations and Canva guide. Designed for Spanish (neutral LATAM) B2B content targeting real estate developers in Mexico, Argentina, and Uruguay.
 ---
 
 # Trichter Content Research & Generation Skill
 
-Pipeline orquestado de 5 fases con compuertas de aprobación humana entre cada una. **NUNCA saltar fases. NUNCA ejecutar Higgsfield sin aprobación explícita de prompts.**
+Pipeline orquestado de 5 fases con compuertas de aprobación humana entre cada una.
+**NUNCA saltar fases. NUNCA ejecutar Higgsfield sin aprobación explícita de prompts.**
 
-## Cómo invocar este skill
+---
 
-El usuario dice algo como:
-- "Trichter: armemos contenido sobre [tema]"
-- "Generemos 3 piezas de LinkedIn sobre seguimiento comercial"
-- "Necesito un carrusel sobre CAC para developers"
+## Parámetros a extraer del prompt
 
-## Parámetros que el skill debe extraer del prompt
+Identificar antes de empezar (preguntar solo lo que falte):
 
-Antes de empezar, identificar (preguntar solo lo que falte):
+1. **Tema o ángulo de research** (obligatorio — preguntar si falta)
+2. **Redes objetivo** (default: LinkedIn + Instagram)
+3. **Cantidad de piezas** (default: 5)
+4. **Mix carrusel/single** (default: 40% carrusel / 60% single)
+5. **Largo de carrusel** (default: 4 slides)
+6. **Audiencia primaria** (default: Segmento A — developers medianos LATAM)
 
-1. **Tema o ángulo de research** (obligatorio)
-2. **Cantidad de piezas** (default: 3)
-3. **Mix carrusel/single** (default: respetar 40/60 del brand.md)
-4. **Largo de carrusel si aplica** (default: 4 slides)
-5. **Audiencia primaria** (default: Segmento A — developers medianos LATAM)
+Si faltan los parámetros opcionales, asumir defaults y avisarlo.
 
-Si falta el tema, preguntar. Si faltan los demás, asumir defaults y avisar al usuario.
+---
 
-## Antes de la Fase 1: cargar contexto
+## PASO 0 — Cargar contexto y verificar assets
 
-**Paso 0 obligatorio:** leer en este orden:
-1. `context/brand.md`
-2. `context/audience.md`
-3. `context/references.md`
-4. `context/assets.md`
-5. `context/blog.md`
-6. `context/instagram.md`
+**Leer en este orden antes de cualquier fase:**
+1. `context/brand.md` — voz, paleta, sistema gráfico, palabras prohibidas
+2. `context/audience.md` — ICP detallado, pain points, cómo escribir para ellos
+3. `context/references.md` — cuentas de referencia para LinkedIn research
+4. `context/assets.md` — UUIDs de logos e imágenes de IG en Higgsfield
+5. `context/blog.md` — datos propios de Trichter y artículos accesibles
+6. `context/instagram.md` — sistema visual IG y media IDs de estilo
 
-Estos archivos definen voz, audiencia, palabras prohibidas, cuentas de inspiración y UUIDs de brand assets. **Todo el output del skill debe respetarlos.**
+**Verificar brand assets (assets.md):**
+- Si hay UUIDs confirmados (sin `⏳`): incluirlos en `medias[]` de cada generación
+- Si todos están pendientes: notificar al usuario antes de la Fase 3
 
-**Paso 0B — verificar brand assets:**
-Revisar `context/assets.md`. Si hay UUIDs registrados (no dicen `_PENDIENTE_`), los prompts de Fase 3A los incluirán automáticamente en el parámetro `medias[]`. Si todos están pendientes, notificar al usuario:
-
-> "⚠️ Los logos de Trichter no están subidos a Higgsfield todavía. Las imágenes se generarán con paleta y descripción textual de la marca, pero sin el logo como referencia visual. Para subirlos: compartí los archivos de logo y los subo con `media_upload`."
+> ⚠️ Los logos de Trichter no están subidos a Higgsfield todavía. Las imágenes se generarán con descripción textual de la paleta, sin el logo como referencia visual. Para activarlo: correr `outputs/assets/upload-all.sh` y confirmar aquí.
 
 ---
 
 ## FASE 1 — RESEARCH
 
-**Objetivo:** detectar formatos y ángulos que están funcionando en LinkedIn entre referentes (no para copiar contenido, sino para inspirar estructura) y combinarlo con contexto sectorial sobre el tema solicitado.
+**Objetivo:** datos concretos del sector + patrones de formato que funcionan entre referentes.
 
-### Sub-fase 1A: Web search sectorial + blog Trichter
+### 1A — Web search: blog Trichter primero, sector después
 
-**1A-1 Blog propio (prioridad alta):** intentar fetch de artículos en `context/blog.md` relacionados con el tema. Los datos propios de Trichter tienen mayor credibilidad que benchmarks del sector. Si algún artículo es accesible, extraer datos concretos y marcarlos como "(dato propio Trichter)".
+**1A-1 Blog propio (máxima prioridad):**
+Revisar `context/blog.md` → si hay URLs accesibles relacionadas con el tema, hacer WebFetch. Los datos propios de Trichter son más creíbles que benchmarks genéricos. Marcar cada dato como `(dato propio Trichter)` vs `(benchmark sector)`.
 
-**1A-2 Web search externo:** búsqueda sobre el tema solicitado, filtrando por:
-- Datos recientes (últimos 6 meses) sobre real estate LATAM
-- Casos de éxito o métricas concretas
-- Reportes de proptech, AMPI, AEV, CCRI Argentina, etc.
+**1A-2 Web search externo:**
+Buscar datos sobre el tema en real estate LATAM. Filtrar por:
+- Últimos 6 meses
+- Métricas concretas (%, tiempos, costos, tasas)
+- Fuentes: proptech, AMPI, AEV, CCRI Argentina, Salesforce, reportes de CRM
 
-Output parcial: 5-8 bullets con hechos, datos, fuentes. Separar datos propios vs datos sectoriales.
+Output: 5-8 bullets con dato + fuente + relevancia para el ICP de Trichter.
 
-### Sub-fase 1B: Research en LinkedIn vía Playwright
+### 1B — LinkedIn research vía Playwright
 
-Ejecutar `scripts/linkedin-research.js` pasando como argumento el tema.
+Verificar primero: ¿existe `scripts/.last-run.json` con timestamp de menos de 4 horas? Si sí, saltar 1B y usar el raw-linkedin.json existente.
 
-El script hace:
-1. Abre Chromium con sesión persistente (`./scripts/.linkedin-session/`)
-2. Si no hay sesión, pide login manual (espera hasta 90 segundos)
-3. Itera sobre las cuentas de `context/references.md` con **pausas humanas** (3-7s entre acciones, 30-60s entre cuentas)
-4. Toma los últimos 5 posts de cada cuenta
-5. Extrae: texto del post, formato (single/carrusel), engagement aproximado, hook (primera línea)
-6. Guarda raw output en `outputs/[fecha]/raw-linkedin.json`
+Si no, ejecutar:
+```bash
+node scripts/linkedin-research.js "[tema]"
+```
 
-**Resguardos críticos del script:**
-- Máximo 1 corrida cada 4 horas (verificar timestamp del último run)
-- Máximo 12 cuentas por corrida
-- Si LinkedIn detecta automatización (checkpoint, captcha), abortar inmediatamente y avisar al usuario
-- Nunca interactuar (likes, comentarios) — solo lectura
+**Si el script falla o no está configurado localmente:**
+No abortar el skill. Ofrecer al usuario dos opciones:
+> "No puedo correr Playwright en este entorno. Podemos continuar de dos formas:
+> A) Pegame 3-5 posts de LinkedIn de referentes que hayas visto recientemente y los proceso yo.
+> B) Avanzo directo con el research web — sin datos de LinkedIn pero con los datos sectoriales."
 
-### Sub-fase 1C: Síntesis
+Continuar con lo que haya disponible. La Fase 1B es útil pero no bloqueante.
 
-Procesar el raw output y producir `outputs/[fecha]/research-report.md` siguiendo `templates/research-report.md`.
+**Resguardos si el script corre:**
+- Máximo 12 cuentas por corrida, 1 corrida cada 4 horas
+- Si LinkedIn detecta automatización (captcha, checkpoint): abortar, NO reintentar, avisar, sugerir esperar 24-48h
+- Solo lectura — nunca likes, comentarios ni mensajes
 
-### 🚦 COMPUERTA DE APROBACIÓN 1
+### 1C — Síntesis
 
-Mostrar el research-report al usuario y preguntar:
-> "Acá está el research. ¿Qué ángulos te interesan que avance a conceptos? Marcá los que sí o pedime ajustes."
+Producir `outputs/[fecha]-[tema]/research-report.md` con:
+- Datos sectoriales encontrados (separados: propios Trichter vs sector)
+- Patrones de formato detectados en LinkedIn (si 1B corrió)
+- 5-8 ángulos candidatos con pain point, formato sugerido y hook propuesto
 
-**No avanzar a Fase 2 sin respuesta explícita.**
+### 🚦 COMPUERTA 1
+
+> "Aquí está el research. ¿Qué ángulos avanzan a conceptos? Marca los que sí o pide ajustes."
 
 ---
 
 ## FASE 2 — MATRIZ DE CONCEPTOS
 
-**Objetivo:** convertir los ángulos aprobados en una matriz dimensional de piezas concretas, antes de redactar nada.
+**Objetivo:** antes de redactar una palabra, definir exactamente qué pieza produce qué resultado.
 
-### Dimensiones de la matriz (adaptadas a Trichter LinkedIn B2B)
+### Dimensiones
 
 | Dimensión | Opciones |
-|---|---|
+|-----------|----------|
 | **Ángulo narrativo** | Educativo / Caso con dato / Contrarian / Framework / Pregunta provocadora |
-| **Formato** | Single image / Carrusel 3-5 slides |
+| **Formato** | Single / Carrusel 3-5 slides |
 | **Mood visual** | Técnico-limpio / Dato-impactante / Humano-cercano |
-| **Pain point principal** | Lead que no convierte / Seguimiento inconsistente / Inventario detenido / Dependencia de pauta / Escalabilidad |
+| **Pain point** | Lead sin convertir / Seguimiento inconsistente / Inventario detenido / Dependencia de pauta / Escalabilidad |
+| **Red recomendada** | LinkedIn / Instagram / Ambas |
+
+**Criterio para Red recomendada:**
+- LinkedIn: ángulos educativos largos, frameworks, casos con dato detallado — audiencia Segmento A (directores)
+- Instagram: datos impactantes visuales, preguntas provocadoras cortas, contrarian — audiencia más amplia
+- Ambas: casi siempre la respuesta correcta para piezas de alto impacto
 
 ### Output
 
-Tabla en `outputs/[fecha]/concept-matrix.md` siguiendo `templates/concept-brief.md`. Cada fila es una pieza candidata con:
-- ID (`TC-[fecha]-001`, etc.)
-- Tema
-- Ángulo
-- Formato
-- Mood
-- Pain point
-- Hook propuesto (1 línea)
-- Justificación (por qué esta combinación tiene sentido para esta audiencia)
+Tabla en `outputs/[fecha]-[tema]/concept-matrix.md`. Cada fila:
+`ID | Tema | Ángulo | Formato | Mood | Pain point | Red | Hook propuesto | Justificación`
 
-### 🚦 COMPUERTA DE APROBACIÓN 2
+### 🚦 COMPUERTA 2
 
-Presentar la matriz y preguntar:
-> "Estas son las piezas candidatas. ¿Cuáles producimos? Pueden ser todas, algunas, o pedirme reemplazos."
-
-**No avanzar a Fase 3 sin selección explícita.**
+> "Estas son las piezas candidatas. ¿Cuáles producimos? Todas / algunas / con reemplazos."
 
 ---
 
 ## FASE 3 — PROMPTS + COPY
 
-**Objetivo:** producir, para cada pieza aprobada, los assets necesarios para Higgsfield + LinkedIn + Instagram.
+**Objetivo:** para cada pieza aprobada, generar todos los assets listos para ejecutar y publicar.
 
-### Para cada pieza:
+### 3A — Prompts de imagen (Higgsfield)
 
-**3A — Prompts de imagen (formato JSON, listos para Higgsfield MCP):**
+**PRINCIPIO FUNDAMENTAL:** Higgsfield genera los **fondos**. El texto, logo, separadores y botones van en Canva. Los prompts NUNCA deben pedir texto renderizado.
 
-**PRINCIPIO CLAVE:** Higgsfield genera los **fondos**. El texto, los separadores, los botones y el logo los agrega el usuario en Canva después. Los prompts NUNCA deben pedir texto renderizado — el resultado es ilegible y no sirve.
+**Modelo y formato:**
+- Modelo: `nano_banana_2` (default) — `soul_2` solo si la pieza requiere persona real
+- Aspect ratio: `4:5` (default, óptimo para feed móvil LI + IG) — `1:1` solo si se pide
+- Resolución: 2K
 
-- Modelo: `nano_banana_2` por default.
-- Aspect ratio: `4:5` como default para posts LinkedIn/IG (mejor performance en feed móvil); `1:1` solo si se pide explícitamente.
-- Resolución: 2K.
-- **Qué pedir en cada prompt** (ver `context/brand.md` sección "Sistema gráfico"):
-  - Fondo negro `#0f1014` con degradado radial warm gold en esquinas
-  - Espacio negativo central completamente vacío para texto en Canva
-  - S1 hook: degradado pronunciado, espacio central 60-70% vacío
-  - S2-S3 contenido: degradado sutil + opcionalmente mockup de laptop centrado en mitad inferior
-  - S4 CTA: degradado medio, 80% vacío
-  - Singles: fondo + elemento geométrico mínimo o completamente limpio
-- **NUNCA** pedir renders arquitectónicos, fotografías ambientales, personas, interiores de propiedades — ese no es el estilo visual de Trichter.
-- Para carruseles: coherencia de paleta entre slides, variación solo en intensidad del gradiente y elementos opcionales.
-- **Variación de fondos**: no generar el mismo gradiente en todas las piezas del batch. Rotar entre: (a) glow esquina superior-derecha, (b) glow bilateral superior, (c) transición horizontal cool→warm, (d) glow inferior + anillos concéntricos, (e) spotlight central. Esto evita que las piezas se vean idénticas al publicar en semanas consecutivas.
+**Qué generar según tipo de slide** (ver sistema gráfico en `context/brand.md`):
 
-**3A — Brand asset references (OBLIGATORIO si assets.md tiene UUIDs):**
-- Leer `context/assets.md` para obtener UUIDs de logos e Instagram registrados.
-- Incluir en cada llamada `generate_image` el parámetro `medias` con máximo 2 referencias:
-  - Referencia 1 (siempre): logo según fondo
-    - Fondo oscuro → `simbolo-blanco-transparente` (`c3047e91-10fb-457c-b5fd-942174c1e43d`)
-    - Fondo claro → `simbolo-dorado-blanco` (`ccc65308-5db0-40da-8cee-4dbeeed437c9`)
-  - Referencia 2 (si disponible): post de Instagram cuyo mood coincida con la pieza
-    - Ver `context/instagram.md` → elegir el post con mood técnico/dato/humano según corresponda
-  - Role para ambos: `"style_reference"`
-- S4 de carruseles (slide de cierre) SIEMPRE incluir logo de alto contraste + espacio negativo en esquina inferior derecha para CTA en Canva.
-- Si algún UUID dice `_PENDIENTE_` o `pendiente upload`, omitir esa referencia específica (usar las que sí están confirmadas) y agregar nota en `execution-log.json`.
+| Slide | Prompt base | Espacio para Canva |
+|-------|-------------|-------------------|
+| S1 Hook | Fondo negro + degradado dorado pronunciado en esquinas | 60-70% centro vacío |
+| S2-S3 Contenido | Fondo negro + degradado sutil + mockup laptop opcional en mitad inferior | 65% superior vacío |
+| S4 CTA | Fondo negro + arco de luz dorado superior | 80% centro-inferior vacío |
+| Single | Fondo negro + degradado según mood de la pieza | 65% centro vacío |
 
-**3B — Copy dual: LinkedIn + Instagram (OBLIGATORIO para cada pieza):**
+**Variación obligatoria de fondos por batch** — rotar entre estas 5 variantes para que las piezas no sean idénticas:
+1. Glow esquina superior-derecha (dominante)
+2. Glow bilateral — ambas esquinas superiores
+3. Transición horizontal cool-to-warm (azul oscuro→dorado)
+4. Glow inferior + anillos concéntricos dark-on-dark
+5. Spotlight central desde arriba
 
-*LinkedIn:*
-- Hook A + Hook B (variante A/B, máx 80 caracteres, sin emoji al inicio)
-- Cuerpo (3-7 párrafos cortos, máx 1300 caracteres)
-- CTA (pregunta abierta o call to comment, NO "agendá una llamada")
-- Hashtags (4-6, mix industria + método + mercado)
+**NUNCA:** renders arquitectónicos, fotografías, personas, interiores de propiedades.
 
-*Instagram:*
-- Hook (primera línea antes del "más", máx 125 caracteres, puede ser más directo que LI)
-- Copy corto (párrafos 1-2 líneas, flechas → como estructura, 1-2 emojis estructurales, máx 800 caracteres)
-- CTA de comentario ("Comenta X", "Guarda esto", o pregunta corta con 👇)
-- Hashtags (8-12, incluir siempre #TrichterConsulting)
+**Brand asset references** (si UUIDs confirmados en `assets.md`):
+- Máximo 2 referencias por generación
+- Ref 1 (logo): fondo oscuro → `c3047e91` / fondo claro → `ccc65308`
+- Ref 2 (IG post): elegir de `instagram.md` el que coincida con el mood de la pieza
+- Role: `"style_reference"` para ambos
+- Si UUID dice `⏳`: omitir esa referencia y anotar en execution-log
 
-*Instrucción Canva por pieza:*
-Para cada pieza, incluir una instrucción específica de qué texto va en qué zona del fondo generado. Esto cierra el gap entre el fondo de Higgsfield y el post publicable.
+### 3B — Copy LinkedIn + Instagram (OBLIGATORIO para cada pieza)
 
-**Voz de marca obligatoria:**
+**LinkedIn:**
+- Hook A + Hook B (máx 80 caracteres, sin emoji al inicio)
+- Cuerpo (3-7 párrafos cortos, máx 1300 caracteres totales)
+- CTA (pregunta abierta o call to comment — NO venta directa)
+- Hashtags (4-6: industria + método + mercado)
+
+**Instagram:**
+- Hook (primera línea antes del "más" — máx 125 caracteres)
+- Caption corta (párrafos de 1-2 líneas, flechas → como estructura, máx 800 caracteres)
+  - Para carruseles: la caption es el texto del post, NO el contenido de cada slide. El contenido de los slides va en la guía Canva.
+- CTA de comentario: "Comenta X", "Guarda esto", o pregunta corta + 👇
+- Hashtags (8-12, siempre incluir `#TrichterConsulting`)
+
+**Guía Canva por pieza** (incluir en copies.md):
+Especificar para cada imagen qué va en qué zona:
+- Zona superior: [texto principal / dato bold / pregunta hook]
+- Zona central: [cuerpo / puntos clave / vacío]
+- Zona inferior: [CTA / logo Trichter esquina inferior derecha / línea separadora dorada]
+
+**Voz de marca:**
 - Releer `context/brand.md` antes de redactar
-- Cero buzzwords prohibidos (ver lista en brand.md)
-- Datos concretos siempre que sea posible (números, %, plazos)
+- Cero buzzwords prohibidos — si aparece uno, marcarlo y reemplazarlo
+- Datos concretos siempre que sea posible
+- Neutro LATAM: sin voseo (tenés→tienes, podés→puedes, sabés→sabes)
 - Tono mentor + rebelde, directo, sin paja
 
-### Output
+### Output Fase 3
 
-`outputs/[fecha]/prompts.json` (estructurado) y `outputs/[fecha]/copies.md` (legible).
+- `outputs/[fecha]-[tema]/prompts.json`
+- `outputs/[fecha]-[tema]/copies.md` (siguiendo `templates/copy-doc.md`)
 
-### 🚦 COMPUERTA DE APROBACIÓN 3 (la más crítica)
+### 🚦 COMPUERTA 3 — la más crítica
 
-> "Acá tenés los prompts y copies. **Antes de gastar créditos de Higgsfield, revisá:**
-> 1. ¿Los prompts capturan la pieza?
-> 2. ¿La voz de marca está bien?
-> 3. ¿Hay alguna palabra prohibida que se haya colado?
+> "Aquí están los prompts y copies. Antes de gastar créditos de Higgsfield, revisar:
+> 1. ¿Los prompts capturan el fondo correcto para cada pieza?
+> 2. ¿La voz de marca está bien en LinkedIn e Instagram?
+> 3. ¿Hay alguna palabra prohibida?
+> 4. ¿Las guías de Canva son claras?
 >
-> Decime: aprobar todo / aprobar con ajustes / rehacer X."
+> Responder: **aprobar todo / aprobar con ajustes / rehacer [pieza X]**."
 
-**Esta es la única fase donde se gastan créditos. No avanzar sin "OK ejecutar".**
+**Esta es la única fase que gasta créditos. No ejecutar sin aprobación.**
 
 ---
 
 ## FASE 4 — EJECUCIÓN HIGGSFIELD
 
-**Objetivo:** disparar el batch via MCP y devolver URLs.
+**Objetivo:** disparar el batch via MCP, loggear resultados y créditos.
 
 ### Pasos
 
-1. Verificar créditos disponibles en Higgsfield (llamar `Higgsfield:balance`)
-2. Si los créditos no alcanzan para el batch completo, avisar y preguntar si continuar con menos piezas
-3. Ejecutar generaciones una por una (no en paralelo masivo, para poder abortar si algo sale mal)
-4. Para cada generación: usar `Higgsfield:generate_image` con los params de `prompts.json`
-5. Loggear cada job_id en `outputs/[fecha]/execution-log.json`
-6. Mostrar progreso al usuario: "1/12 listo, 2/12 listo..."
+1. Verificar créditos: `Higgsfield:balance` → si no alcanzan para el batch completo, avisar y preguntar si continuar con subset
+2. Registrar créditos iniciales
+3. Ejecutar generaciones **una por una** (permite abortar si algo sale mal)
+4. Para cada generación: `Higgsfield:generate_image` con params de `prompts.json`
+5. Mostrar progreso: "1/11 lista ✓", "2/11 lista ✓"...
+6. Al terminar: obtener URLs con `job_display`
 
-### Output
+### Execution log (`outputs/[fecha]-[tema]/execution-log.json`)
 
-`outputs/[fecha]/results.md` con: URL de cada imagen, ID de pieza asociado, modelo usado, créditos consumidos.
+```json
+{
+  "batch": "[tema] — [fecha]",
+  "brand_assets_active": false,
+  "creditos_inicio": 0,
+  "creditos_fin": 0,
+  "creditos_consumidos": 0,
+  "generaciones": [
+    {
+      "pieza_id": "TC-X-001",
+      "slide": "S1",
+      "job_id": "uuid",
+      "status": "completed",
+      "url": "https://...",
+      "medias_usados": []
+    }
+  ],
+  "notas": []
+}
+```
 
 ---
 
 ## FASE 5 — DELIVERY
 
-**Objetivo:** cerrar el ciclo con recomendaciones accionables, no solo con un dump de archivos.
+**Objetivo:** entregar un paquete accionable — no solo URLs sino instrucciones para publicar.
 
-### Output: `outputs/[fecha]/delivery.md`
+### Output: `outputs/[fecha]-[tema]/delivery.md`
 
-Estructura:
-1. **Resumen ejecutivo:** N piezas generadas, créditos usados, distribución por ángulo
-2. **Galería organizada por ángulo narrativo** con preview + copy + prompt resumido
-3. **Top 3 recomendados para publicar primero**, con justificación basada en:
-   - Match con el ángulo más fuerte del research
-   - Diversidad de pain points cubiertos
-   - Mood visual diferenciado
-4. **Plan de publicación sugerido**: orden, días sugeridos, espaciado
-5. **Variantes A/B de hook ya redactadas** para los top 3
-6. **Próximos pasos**: qué editar en Canva si aplica, qué resize hacer, cuándo hacer la próxima corrida
+**Estructura obligatoria:**
+
+1. **Resumen ejecutivo** — piezas, imágenes, créditos consumidos, estado brand assets
+
+2. **Galería por pieza** — para cada pieza:
+   - Hook recomendado
+   - URL(s) de imagen(es)
+   - Copy LinkedIn (truncado a hook + primeras 2 líneas)
+   - Copy Instagram (ídem)
+   - **Guía Canva** — instrucciones específicas zona por zona:
+     ```
+     Zona superior: [qué texto, qué tamaño, qué peso]
+     Zona central:  [qué texto o vacío]
+     Zona inferior: [logo Trichter esquina inferior derecha + CTA]
+     Separadores:   [dónde va la línea dorada]
+     ```
+
+3. **Top 3 para publicar primero** — justificación basada en:
+   - Dato más impactante / verificable por el ICP
+   - Diversidad de ángulos
+   - Balance LI vs IG
+
+4. **Plan de publicación** — tabla con: Semana / Red / Día / Pieza / Formato
+   - Mínimo 3 días entre publicaciones en la misma red
+   - Carruseles de caso separados por al menos 2 semanas
+   - Alternar singles y carruseles
+
+5. **Variantes A/B de hook** — para los top 3, en ambas versiones (LI + IG)
+
+6. **Próximos pasos**:
+   - Checklist Canva por pieza
+   - Estado de brand assets y cómo activarlos si están pendientes
+   - Tema sugerido para el próximo batch (basado en lo que no se cubrió en este)
 
 ---
 
 ## Reglas operativas inviolables
 
-1. **Nunca saltar una compuerta de aprobación.** Si el usuario dice "dale, generá todo de una", igual mostrar prompts antes de ejecutar — los créditos importan.
-2. **Nunca usar palabras prohibidas** del `brand.md`. Si una se cuela, marcarla en rojo y proponer reemplazo.
-3. **Siempre versionar outputs por fecha** (`outputs/2026-05-04/`).
-4. **Siempre loggear créditos consumidos** para que el usuario pueda controlar gasto.
-5. **Si Playwright falla**, no abortar el skill: ofrecer al usuario continuar solo con web search + posts de LinkedIn que él pegue manualmente (modo D del comparativo).
-6. **Si LinkedIn detecta automatización**, abortar Playwright inmediatamente, NO reintentar, avisar al usuario y sugerir esperar 24-48h.
+1. **Nunca saltar una compuerta.** Si el usuario dice "dale todo de una vez", igual mostrar prompts antes de ejecutar.
+2. **Nunca usar palabras prohibidas** de `brand.md`. Si aparece una, marcarla con ⚠️ y proponer reemplazo.
+3. **Neutro LATAM siempre.** Sin voseo en ningún output (copies, delivery, mensajes al usuario).
+4. **Versionar outputs** en `outputs/[fecha]-[tema-slug]/` — ej: `outputs/2026-05-05-automatizacion/`
+5. **Siempre loggear créditos** — inicio y fin de Fase 4.
+6. **Si Playwright falla**, no abortar — ofrecer opciones A/B al usuario (ver Fase 1B).
+7. **Si LinkedIn detecta automatización**, abortar Playwright inmediatamente, NO reintentar.
 
 ## Estructura de outputs
 
 ```
 outputs/
-└── 2026-05-04/
-    ├── raw-linkedin.json
+└── 2026-05-05-automatizacion/
     ├── research-report.md
+    ├── raw-linkedin.json        ← si Playwright corrió
     ├── concept-matrix.md
     ├── prompts.json
-    ├── copies.md
-    ├── execution-log.json
-    ├── results.md
-    └── delivery.md
+    ├── copies.md                ← LinkedIn + Instagram + guía Canva por pieza
+    ├── execution-log.json       ← job IDs + créditos + URLs
+    └── delivery.md              ← galería + top 3 + plan publicación + guía Canva
 ```
