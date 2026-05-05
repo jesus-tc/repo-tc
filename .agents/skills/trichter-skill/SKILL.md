@@ -132,11 +132,21 @@ Presentar la matriz y preguntar:
 ### Para cada pieza:
 
 **3A — Prompts de imagen (formato JSON, listos para Higgsfield MCP):**
-- Modelo: `nano_banana_2` por default. Si la pieza requiere persona, usar `soul_2`.
-- Aspect ratio: `1:1` para single y carrusel feed; ofrecer `4:5` como variante si se quiere mejor performance en feed.
-- Resolución: 2K mínimo.
-- Cada prompt debe incluir: descripción de escena, paleta Trichter (negro #0f1014, dorado #d7ae49, blanco #fff), referencias estilísticas, espacio negativo para texto si aplica.
-- Para carruseles: un prompt por slide, con coherencia visual entre slides (misma paleta, misma lógica de composición, variación en escena).
+
+**PRINCIPIO CLAVE:** Higgsfield genera los **fondos**. El texto, los separadores, los botones y el logo los agrega el usuario en Canva después. Los prompts NUNCA deben pedir texto renderizado — el resultado es ilegible y no sirve.
+
+- Modelo: `nano_banana_2` por default.
+- Aspect ratio: `4:5` como default para posts LinkedIn/IG (mejor performance en feed móvil); `1:1` solo si se pide explícitamente.
+- Resolución: 2K.
+- **Qué pedir en cada prompt** (ver `context/brand.md` sección "Sistema gráfico"):
+  - Fondo negro `#0f1014` con degradado radial warm gold en esquinas
+  - Espacio negativo central completamente vacío para texto en Canva
+  - S1 hook: degradado pronunciado, espacio central 60-70% vacío
+  - S2-S3 contenido: degradado sutil + opcionalmente mockup de laptop centrado en mitad inferior
+  - S4 CTA: degradado medio, 80% vacío
+  - Singles: fondo + elemento geométrico mínimo o completamente limpio
+- **NUNCA** pedir renders arquitectónicos, fotografías ambientales, personas, interiores de propiedades — ese no es el estilo visual de Trichter.
+- Para carruseles: coherencia de paleta entre slides, variación solo en intensidad del gradiente y elementos opcionales.
 
 **3A — Brand asset references (OBLIGATORIO si assets.md tiene UUIDs):**
 - Leer `context/assets.md` para obtener UUIDs de logos e Instagram registrados.

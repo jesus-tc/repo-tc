@@ -5,17 +5,58 @@
 
 ## Identidad visual
 
-**Logos:** disponibles en `assets/logos/` (18 variantes: símbolo solo, símbolo + texto, vertical, horizontal, sobre negro, sobre blanco, app icon, etc.). Los UUIDs de Higgsfield para usar en generación automática están en `context/assets.md`.
+**Logos:** disponibles en `assets/logos/` (18 variantes). UUIDs de Higgsfield en `context/assets.md`.
 
 **Paleta:**
-- Primario oscuro: `#0f1014` (negro corporativo)
-- Primario acento: `#d7ae49` (dorado Trichter)
+- Primario oscuro: `#0f1014` (negro corporativo — fondo base de todas las piezas)
+- Primario acento: `#d7ae49` (dorado Trichter — separadores, bordes de botón, gradientes)
 - Secundario neutro oscuro: `#333333`
-- Secundario neutro claro: `#ffffff`
+- Secundario neutro claro: `#ffffff` (texto principal sobre negro)
 
-**Tipografía:** Poppins (títulos y cuerpo).
+**Tipografía:** sans-serif extrabold/black para headings uppercase + italic bold para títulos secundarios. Poppins o equivalente.
 
-**Estilo visual:** minimalista-corporativo. Cero recargado. Espacio negativo. Composición geométrica. Aire premium pero no aspiracional vacío.
+---
+
+## Sistema gráfico de piezas (referencia visual canónica)
+
+> Basado en los posts reales de Instagram `@trichter.consulting`. Este es el estilo a replicar.
+
+### Fondo
+- Base: negro puro `#0f1014`
+- Degradado: radial warm gold (`#c9a052` ± 10% saturación) desde esquinas — generalmente superior-derecha + inferior-izquierda
+- Intensidad del degradado: sutil en slides de contenido, pronunciado en slides de hook/cover
+
+### Tipografía en imagen
+- **Heading principal**: extrabold/black, uppercase, blanco `#ffffff`, tamaño muy grande (ocupa 40-60% del ancho)
+- **Pregunta intro**: regular o semibold, tamaño pequeño, misma línea visual que el heading
+- **Nombres/herramientas**: italic bold, tamaño grande
+- **Cuerpo**: bold + regular mix, centrado, tamaño mediano
+
+### Elementos de acento dorado
+- Línea separadora horizontal: 1-2px, color dorado, debajo de títulos de herramienta
+- Bordes de botón CTA: rounded, stroke dorado, fondo transparente o muy oscuro
+- El dorado aparece como acento estructural, nunca como relleno dominante
+
+### Composición
+- Layout centrado verticalmente con mucho espacio negro arriba y abajo
+- El texto ES el visual — no fotografías ambientales
+- Para slides de herramienta: mockup de laptop centrado con screenshot real de la tool
+- Iconografía: cursor click (`↗ ✴`), chevrons de swipe (`>>>>>`), chevron down (`∨`)
+- Indicador de carrusel: puntos en parte inferior del slide 1
+
+### Lo que Higgsfield genera vs. lo que va en Canva
+- **Higgsfield genera**: el fondo (negro + gradiente dorado), eventuales mockups de laptop o elementos geométricos
+- **Canva agrega**: todo el texto, las líneas separadoras, los botones, el logo
+- **NUNCA pedir a Higgsfield que genere texto renderizado** — el resultado es ilegible
+- Los slides deben tener el centro completamente limpio (espacio negativo) para que Canva coloque el texto
+
+### Aplicación por tipo de slide
+| Slide | Qué generar en Higgsfield |
+|-------|--------------------------|
+| S1 (hook/cover) | Fondo negro con gradiente dorado pronunciado en esquinas. Espacio central vacío para título grande. |
+| S2-S3 (contenido/herramienta) | Fondo negro con gradiente sutil. Si aplica: mockup de laptop centrado en mitad inferior. Espacio superior libre para título. |
+| S4 (CTA/cierre) | Fondo negro con gradiente dorado medio. Centro completamente vacío para texto CTA. |
+| Singles | Fondo negro + gradiente. Espacio central limpio o con elemento geométrico minimalista. |
 
 ## Negocio y posicionamiento
 

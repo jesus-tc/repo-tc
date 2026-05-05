@@ -6,7 +6,7 @@
     "secondary_neutral_dark": "#333333",
     "secondary_neutral_light": "#ffffff"
   },
-  "_style_baseline": "minimalista corporativo, espacio negativo, composición geométrica, paleta Trichter (negro y dorado), tipografía Poppins si hay texto en imagen, aire premium pero no aspiracional vacío, fotografía o render arquitectónico de alta calidad, sin stock típico de agencia",
+  "_style_baseline": "dark typographic background for social media slide — pure near-black background (#0f1014) with subtle warm golden radial gradient glowing from corners (top-right and bottom-left), soft volumetric light, no text rendered, large empty negative space in center for Canva text overlay, ultra-minimal, premium corporate, zero clutter, zero architectural photography, zero people",
   "_brand_assets_instruction": "Leer context/assets.md antes de generar prompts. Si hay UUIDs registrados, incluir el logo correcto en medias[] según el fondo de la imagen (fondo oscuro → logo-blanco; fondo claro → logo-negro-dorado). Si los UUIDs dicen _PENDIENTE_, omitir medias[] y avisar al usuario.",
   "pieces": [
     {
