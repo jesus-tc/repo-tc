@@ -14,14 +14,28 @@ https://trichterconsulting.com/blog/
 
 ## Artículos conocidos
 
-> Completar con URLs reales al hacer el primer scrape exitoso.
+> URLs con 403 al hacer fetch automático. Poblar manualmente con datos de cada artículo.
+> Fuente alternativa verificada: https://trichterconsulting.com/leads-inmobiliarios-guia-estrategica/
 
 | Tema | URL | Datos/Citas clave | Usado en |
 |------|-----|-------------------|----------|
-| Speed-to-lead | — | 917 min promedio industria, 1% responde en 5 min | TC-001 |
-| CAC y proceso comercial | — | CAC -41% en 45 días, speed-to-lead 4.2h→5min | TC-006 |
-| Pipeline dormido en CRM | — | $58.5M en CRM, 68% leads sin 2do contacto | TC-007 |
-| Show rate inmobiliario | — | benchmark 10-23%, caso 20%→60% con IA | TC-003 |
+| Speed-to-lead | — | 917 min promedio industria, 1% responde en 5 min | TC-001 (batch mayo) |
+| CAC y proceso comercial | — | CAC -41% en 45 días, speed-to-lead 4.2h→5min | TC-006 (batch mayo) |
+| Pipeline dormido en CRM | — | $58.5M en CRM, 68% leads sin 2do contacto | TC-007 (batch mayo) |
+| Show rate inmobiliario | — | benchmark 10-23%, caso 20%→60% con IA | TC-003 (batch mayo) |
+| Automatización leads | — | 8%→13% conversión sin tocar pauta; 3.2h→5min respuesta; 68% sin 2do contacto | TC-A-005 (batch automatización) |
+| Leads inmobiliarios guía | https://trichterconsulting.com/leads-inmobiliarios-guia-estrategica/ | CPL $5-15 bruto / $35-60 calificado | TC-A-001 |
+
+## Datos del sector con fuente verificada (para uso en copies)
+
+| Dato | Fuente | Usado en |
+|------|--------|----------|
+| 71% leads sin segunda llamada | promedio sector (Andrés Ospina, 2025) | TC-A-001 |
+| -50% prob. cierre c/30 min sin respuesta | comportamiento documentado comprador | TC-A-003 |
+| Solo 23% inmobiliarias LATAM usa IA | CREW Network 2024 | TC-A-004 |
+| 80 contactos = límite gestión humana activa | neurociencia / gestión comercial | TC-A-002 |
+| CRM aumenta conversiones hasta 29% | Salesforce 2025 | referencia general |
+| LATAM proptech CAGR 11.4% hasta 2034 | CoherentMarket 2025 | contexto sectorial |
 
 ---
 

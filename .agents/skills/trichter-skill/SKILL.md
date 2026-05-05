@@ -127,7 +127,7 @@ Presentar la matriz y preguntar:
 
 ## FASE 3 — PROMPTS + COPY
 
-**Objetivo:** producir, para cada pieza aprobada, los assets necesarios para Higgsfield + LinkedIn.
+**Objetivo:** producir, para cada pieza aprobada, los assets necesarios para Higgsfield + LinkedIn + Instagram.
 
 ### Para cada pieza:
 
@@ -147,6 +147,7 @@ Presentar la matriz y preguntar:
   - Singles: fondo + elemento geométrico mínimo o completamente limpio
 - **NUNCA** pedir renders arquitectónicos, fotografías ambientales, personas, interiores de propiedades — ese no es el estilo visual de Trichter.
 - Para carruseles: coherencia de paleta entre slides, variación solo en intensidad del gradiente y elementos opcionales.
+- **Variación de fondos**: no generar el mismo gradiente en todas las piezas del batch. Rotar entre: (a) glow esquina superior-derecha, (b) glow bilateral superior, (c) transición horizontal cool→warm, (d) glow inferior + anillos concéntricos, (e) spotlight central. Esto evita que las piezas se vean idénticas al publicar en semanas consecutivas.
 
 **3A — Brand asset references (OBLIGATORIO si assets.md tiene UUIDs):**
 - Leer `context/assets.md` para obtener UUIDs de logos e Instagram registrados.
@@ -160,12 +161,22 @@ Presentar la matriz y preguntar:
 - S4 de carruseles (slide de cierre) SIEMPRE incluir logo de alto contraste + espacio negativo en esquina inferior derecha para CTA en Canva.
 - Si algún UUID dice `_PENDIENTE_` o `pendiente upload`, omitir esa referencia específica (usar las que sí están confirmadas) y agregar nota en `execution-log.json`.
 
-**3B — Copy de LinkedIn:**
-- Hook (primera línea, debajo de 80 caracteres, sin emoji al inicio)
-- Cuerpo (3-7 párrafos cortos, máx. 1300 caracteres totales para no truncar en feed)
+**3B — Copy dual: LinkedIn + Instagram (OBLIGATORIO para cada pieza):**
+
+*LinkedIn:*
+- Hook A + Hook B (variante A/B, máx 80 caracteres, sin emoji al inicio)
+- Cuerpo (3-7 párrafos cortos, máx 1300 caracteres)
 - CTA (pregunta abierta o call to comment, NO "agendá una llamada")
-- Hashtags (4-6, mix de industria + método + mercado, generados dinámicamente)
-- 1 variante A/B del hook
+- Hashtags (4-6, mix industria + método + mercado)
+
+*Instagram:*
+- Hook (primera línea antes del "más", máx 125 caracteres, puede ser más directo que LI)
+- Copy corto (párrafos 1-2 líneas, flechas → como estructura, 1-2 emojis estructurales, máx 800 caracteres)
+- CTA de comentario ("Comenta X", "Guarda esto", o pregunta corta con 👇)
+- Hashtags (8-12, incluir siempre #TrichterConsulting)
+
+*Instrucción Canva por pieza:*
+Para cada pieza, incluir una instrucción específica de qué texto va en qué zona del fondo generado. Esto cierra el gap entre el fondo de Higgsfield y el post publicable.
 
 **Voz de marca obligatoria:**
 - Releer `context/brand.md` antes de redactar
