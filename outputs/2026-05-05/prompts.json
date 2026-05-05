@@ -1,0 +1,194 @@
+{
+  "_meta": {
+    "fecha": "2026-05-05",
+    "batch": "7 piezas Trichter",
+    "modelo_default": "nano_banana_2",
+    "aspect_ratio": "1:1",
+    "resolution": "2K"
+  },
+  "_brand_palette": {
+    "primary_dark": "#0f1014",
+    "primary_accent": "#d7ae49",
+    "secondary_neutral_light": "#ffffff"
+  },
+  "_style_baseline": "Minimalista corporativo. Fondo #0f1014. Acentos dorados #d7ae49. Sin stock fotográfico de agencia. Sin personas sonriendo forzado. Composición geométrica limpia. Espacio negativo para texto. Tipografía Poppins implícita. Aire premium funcional.",
+  "pieces": [
+    {
+      "id": "TC-20260505-001",
+      "format": "carousel",
+      "title": "Speed-to-lead",
+      "model": "nano_banana_2",
+      "aspect_ratio": "1:1",
+      "resolution": "2K",
+      "carousel_coherence": "Las 4 slides comparten fondo #0f1014, líneas geométricas doradas como elemento estructural, y tipografía grande en blanco con acento dorado en el número clave de cada slide.",
+      "slides": [
+        {
+          "slide_number": 1,
+          "role": "hook",
+          "prompt": "Composición minimalista sobre fondo negro profundo #0f1014. Centro de la imagen: el número '917' en tipografía sans-serif bold, color blanco #ffffff, tamaño dominante. Debajo en texto más pequeño: 'minutos'. Línea geométrica dorada #d7ae49 horizontal bajo el número, delgada, que corta la composición. Espacio negativo superior e inferior generoso para texto overlay. Sin personas. Sin gráficos de barra. Solo tipografía y geometría. Mood: dato impactante, frío, corporativo premium.",
+          "negative_prompt": "stock photo, personas, gráficos de torta, colores fuera de paleta, efectos de brillo excesivo, gradientes llamativos"
+        },
+        {
+          "slide_number": 2,
+          "role": "desarrollo — el costo del tiempo",
+          "prompt": "Fondo #0f1014. Composición de dos bloques geométricos: izquierda, reloj analógico minimalista en trazo dorado #d7ae49 sobre fondo oscuro, estilo line art; derecha, texto grande '50%' en blanco con bajada pequeña 'menos chances por cada 30 min'. Línea divisoria vertical dorada delgada entre bloques. Composición simétrica. Espacio superior para titular overlay. Sin fotografía. Mood: técnico, urgente.",
+          "negative_prompt": "stock photo, personas, relojes realistas de catálogo, gradientes, colores fuera de paleta"
+        },
+        {
+          "slide_number": 3,
+          "role": "desarrollo — el dato de cierre",
+          "prompt": "Fondo #0f1014. Centro: el número '78%' en tipografía bold blanca, dominante. Subtexto pequeño debajo: 'trabaja con el primero que responde'. Elemento decorativo: tres líneas horizontales doradas de distinto grosor apiladas a la izquierda del número, como señal de conexión o ranking. Composición asimétrica deliberada. Espacio negativo a la derecha para texto adicional. Mood: contundente, estadístico.",
+          "negative_prompt": "personas, íconos de agencia, gradientes de color, colores fuera de paleta, efectos glitch"
+        },
+        {
+          "slide_number": 4,
+          "role": "cierre + CTA visual",
+          "prompt": "Fondo #0f1014. Composición centrada. Rectángulo dorado #d7ae49 de borde fino (no relleno) enmarca el área central — espacio para logo Trichter y CTA textual. Fuera del rectángulo, esquinas con líneas geométricas doradas que apuntan hacia el centro. Mood: conclusión, llamada a la acción, branding. Espacio interno del rectángulo completamente libre para overlay de texto y logo.",
+          "negative_prompt": "personas, fotografía, efectos de luz excesivos, colores fuera de paleta"
+        }
+      ],
+      "notes": "Slide 1 es el más importante — el '917' debe ser legible incluso en thumbnail. Mantener consistencia de grosor de línea dorada entre slides."
+    },
+    {
+      "id": "TC-20260505-002",
+      "format": "carousel",
+      "title": "Fricción lead→cita",
+      "model": "nano_banana_2",
+      "aspect_ratio": "1:1",
+      "resolution": "2K",
+      "carousel_coherence": "Fondo #0f1014 consistente. Elemento visual unificador: un embudo geométrico que aparece fragmentado a lo largo de las 4 slides — cada slide muestra una etapa del embudo, con la etapa relevante iluminada en dorado.",
+      "slides": [
+        {
+          "slide_number": 1,
+          "role": "hook",
+          "prompt": "Fondo negro #0f1014. Embudo geométrico minimalista en trazo blanco, orientado verticalmente, centrado. La parte superior (entrada de leads) está iluminada en blanco brillante. La salida inferior está casi cerrada — trazo muy delgado en gris oscuro. A la derecha del embudo, el texto '79%' en dorado #d7ae49 bold. Mood: visual de pérdida, embudo roto, dato crítico. Espacio negativo en parte superior para texto hook.",
+          "negative_prompt": "íconos de personas, fotografía, gradientes de color, colores fuera de paleta, gráficos de barras complejos"
+        },
+        {
+          "slide_number": 2,
+          "role": "desarrollo — dónde muere el lead",
+          "prompt": "Fondo #0f1014. Línea de tiempo vertical minimalista en el eje central: 3 nodos conectados por línea delgada blanca. Nodo 1 (arriba): círculo dorado sólido — 'Lead entra'. Nodo 2 (medio): círculo de borde dorado con interior oscuro — 'Primer contacto (tarde)'. Nodo 3 (abajo): círculo gris — 'Oportunidad perdida'. Cada nodo con texto descriptivo en blanco pequeño. Espacio lateral generoso. Mood: proceso fallido visualizado.",
+          "negative_prompt": "fotografía, personas, colores fuera de paleta, íconos de emoji, efectos de brillo"
+        },
+        {
+          "slide_number": 3,
+          "role": "desarrollo — el costo en números",
+          "prompt": "Fondo #0f1014. Dos columnas geométricas: izquierda, rectángulo delgado dorado con etiqueta 'CPL calificado' y valor '$5–15 USD' en blanco. Derecha, rectángulo más alto dorado con etiqueta 'Cita agendada' y valor '$35–60 USD'. Espacio entre columnas con flecha dorada apuntando hacia arriba — representa el costo de la fricción. Composición de gráfico de barras minimalista. Mood: económico, urgente.",
+          "negative_prompt": "fotografía, personas, gráficos complejos de torta, colores fuera de paleta"
+        },
+        {
+          "slide_number": 4,
+          "role": "cierre + CTA visual",
+          "prompt": "Fondo #0f1014. Embudo geométrico completo, ahora con trazo dorado sólido de inicio a fin — embudo sin fricción. Contrasta visualmente con el slide 1 (embudo roto). Centro inferior: espacio rectangular libre para logo Trichter y CTA. Líneas geométricas doradas en esquinas. Mood: solución, contraste positivo con slide 1.",
+          "negative_prompt": "fotografía, personas, colores fuera de paleta, efectos de brillo excesivo"
+        }
+      ],
+      "notes": "El arco visual del embudo roto (slide 1) al embudo completo (slide 4) debe ser reconocible. Mantener el mismo estilo de trazo en los embudos."
+    },
+    {
+      "id": "TC-20260505-003",
+      "format": "single",
+      "title": "Show rate",
+      "model": "nano_banana_2",
+      "aspect_ratio": "1:1",
+      "resolution": "2K",
+      "prompt": "Fondo #0f1014. Composición de dashboard minimalista simulado: cuatro rectángulos de borde delgado dorado #d7ae49, organizados en cuadrícula 2x2, cada uno con una etiqueta de segmento en texto blanco pequeño ('Social', 'Medio', 'Residencial', 'Residencial+') y un porcentaje grande en blanco. El porcentaje del segmento 'Residencial' está ligeramente más oscuro/apagado — sugiere zona de alerta. Líneas de cuadrícula muy sutiles en #333333 como fondo de grilla. Espacio superior para texto hook overlay. Mood: técnico, dashboard real, datos reales.",
+      "negative_prompt": "fotografía, personas, colores de dashboard genérico (azul corporativo estándar), gradientes de color, íconos decorativos",
+      "notes": "Pieza single — el dashboard debe ser legible en mobile. Los cuatro cuadrantes deben mantener proporción cuadrada."
+    },
+    {
+      "id": "TC-20260505-004",
+      "format": "single",
+      "title": "Inventario detenido",
+      "model": "nano_banana_2",
+      "aspect_ratio": "1:1",
+      "resolution": "2K",
+      "prompt": "Fondo #0f1014. Composición de un edificio residencial moderno en render arquitectónico minimalista, trazo de línea blanca sobre fondo negro — estilo blueprint de alta gama. El edificio está completo y detallado. Sobre la imagen, una banda geométrica horizontal dorada #d7ae49 en el tercio inferior, con texto blanco que dice '+ del 50% no cumplió su meta. Con inventario terminado.' El contraste entre el edificio terminado y el dato de fallo es la tensión visual de la pieza. Espacio superior libre para hook textual.",
+      "negative_prompt": "fotografía de stock, cielo azul genérico, personas sonriendo, colores fuera de paleta, efectos de luz dramáticos de agencia",
+      "notes": "El render arquitectónico debe verse premium y austero — no publicidad de proyecto inmobiliario. Línea estilo blueprint, no fotorrealismo."
+    },
+    {
+      "id": "TC-20260505-005",
+      "format": "single",
+      "title": "Ciclo de agencias",
+      "model": "nano_banana_2",
+      "aspect_ratio": "1:1",
+      "resolution": "2K",
+      "prompt": "Fondo #0f1014. Composición circular: tres nodos conectados por flechas curvas doradas formando un ciclo cerrado — como un loop sin salida. Cada nodo es un círculo pequeño de borde dorado. Etiquetas en blanco: 'Leads no convierten', 'Nueva agencia', 'Mismos resultados'. El ciclo es el mensaje. Centro del loop: completamente vacío — espacio negativo deliberado que sugiere que ahí falta algo (el proceso comercial). Espacio exterior para texto hook. Mood: patrón reconocible, diagnóstico visual.",
+      "negative_prompt": "fotografía, personas, gráficos de torta, iconos de agencia estándar, colores fuera de paleta, flechas de PowerPoint genéricas",
+      "notes": "El loop debe ser perfectamente circular, no ovalado. Las flechas deben tener la misma curvatura."
+    },
+    {
+      "id": "TC-20260505-006",
+      "format": "carousel",
+      "title": "CAC -41% en 45 días",
+      "model": "nano_banana_2",
+      "aspect_ratio": "1:1",
+      "resolution": "2K",
+      "carousel_coherence": "Estructura antes/después. Slides 1-2: paleta en tonos más apagados (problema). Slides 3-4: acento dorado más prominente (solución y resultado). Fondo #0f1014 consistente.",
+      "slides": [
+        {
+          "slide_number": 1,
+          "role": "hook — el estado inicial",
+          "prompt": "Fondo #0f1014. Composición de tres métricas apiladas verticalmente en el centro: '4.2 h' (speed-to-lead), '23%' (seguimiento post-cita), 'Manual' (calificación). Cada métrica en texto blanco bold con etiqueta pequeña en gris claro. Barra lateral izquierda vertical en color gris #333333 — no dorado, porque estas son las métricas del problema. Espacio superior para texto 'El diagnóstico' o similar. Mood: auditoría, frío, problema medido.",
+          "negative_prompt": "dorado prominente en este slide, personas, fotografía, colores fuera de paleta"
+        },
+        {
+          "slide_number": 2,
+          "role": "desarrollo — las 3 palancas tocadas",
+          "prompt": "Fondo #0f1014. Lista vertical de 3 ítems con ícono de flecha dorada delgada al inicio de cada uno. Texto en blanco, frases cortas. Espacio entre ítems generoso. Barra lateral izquierda ahora en dorado delgado — transición de problema a solución. Mood: lista de intervenciones, accionable, metódico.",
+          "negative_prompt": "íconos de check corporativos genéricos, fotografía, colores fuera de paleta, gradientes"
+        },
+        {
+          "slide_number": 3,
+          "role": "resultado — el dato clave",
+          "prompt": "Fondo #0f1014. Elemento central dominante: '-41%' en tipografía bold blanca de tamaño máximo permitido. Debajo en dorado #d7ae49: 'CAC en 45 días'. Elementos secundarios pequeños en blanco: '0 de pauta adicional'. Línea geométrica dorada horizontal bajo el porcentaje. Composición impactante, pocas palabras, dato que no se olvida. Mood: resultado, celebración mesurada, datos.",
+          "negative_prompt": "fotografía, personas celebrando, efectos de confeti, colores fuera de paleta"
+        },
+        {
+          "slide_number": 4,
+          "role": "cierre + CTA",
+          "prompt": "Fondo #0f1014. Composición limpia con rectángulo de borde dorado en centro — espacio para logo Trichter y CTA. Esquinas con detalles geométricos dorados finos. Fuera del rectángulo, fondo completamente limpio. Mood: branding final, invitación a la acción.",
+          "negative_prompt": "fotografía, personas, efectos de luz excesivos, colores fuera de paleta"
+        }
+      ],
+      "notes": "El '-41%' del slide 3 debe ser el número más grande del batch — es el dato ancla de la pieza."
+    },
+    {
+      "id": "TC-20260505-007",
+      "format": "carousel",
+      "title": "$58.5M pipeline dormido",
+      "model": "nano_banana_2",
+      "aspect_ratio": "1:1",
+      "resolution": "2K",
+      "carousel_coherence": "Narrativa visual de 'lo que estaba oculto sale a la luz'. Slides 1-2: tonos oscuros, composición cerrada. Slides 3-4: apertura, dorado más prominente, composición expansiva.",
+      "slides": [
+        {
+          "slide_number": 1,
+          "role": "hook — el dato impactante",
+          "prompt": "Fondo #0f1014. Centro: '$58.5M' en tipografía bold blanca, tamaño dominante. Debajo en dorado: 'en el CRM. Sin tocar.' Elemento visual: línea de código o filas de base de datos estilizadas en gris muy oscuro como textura de fondo — sugiere CRM, datos dormidos. Espacio superior libre para texto. Mood: dinero dormido, urgencia silenciosa.",
+          "negative_prompt": "fotografía, personas, edificios de stock, colores fuera de paleta, efectos de luz brillantes"
+        },
+        {
+          "slide_number": 2,
+          "role": "desarrollo — el diagnóstico",
+          "prompt": "Fondo #0f1014. Composición de dos estadísticas lado a lado: izquierda '68%' con etiqueta 'nunca recibió 2do contacto'; derecha '41%' con etiqueta 'respuesta >24h'. Ambos números en blanco bold. Separador vertical dorado delgado entre ellos. Fondo de filas de datos estilizadas como textura sutil en #1a1a1f. Espacio superior para contexto textual. Mood: auditoría de CRM, datos reales, problema visible.",
+          "negative_prompt": "fotografía, personas, colores fuera de paleta, gradientes de color"
+        },
+        {
+          "slide_number": 3,
+          "role": "desarrollo — el resultado de la reactivación",
+          "prompt": "Fondo #0f1014. Cuatro métricas en cuadrícula 2x2 con bordes dorados delgados: '312 leads reactivados', '47 citas generadas', '11 operaciones cerradas', '$0 pauta adicional'. Cada celda con número en blanco grande y etiqueta pequeña en gris claro. Cuadrante '$0 pauta adicional' con fondo ligeramente más claro (#1a1a1f) para destacar. Mood: resultados concretos, cuadro de mando.",
+          "negative_prompt": "fotografía, personas, colores fuera de paleta, efectos de celebración"
+        },
+        {
+          "slide_number": 4,
+          "role": "cierre + CTA",
+          "prompt": "Fondo #0f1014. Composición: línea de puntos dorados que van de izquierda (difuso, representando leads dormidos) a derecha (concentrado y brillante, representando pipeline activo). Al final de la línea: rectángulo dorado de borde fino con espacio para logo y CTA. Mood: transformación, pipeline activado, conclusión visual.",
+          "negative_prompt": "fotografía, personas, efectos de partículas excesivos, colores fuera de paleta"
+        }
+      ],
+      "notes": "El '$58.5M' del slide 1 debe ser el número más grande del slide — la cifra es el gancho. Mantener la textura de 'filas de datos' en slides 1 y 2 para coherencia narrativa."
+    }
+  ]
+}
