@@ -7,6 +7,7 @@
     "secondary_neutral_light": "#ffffff"
   },
   "_style_baseline": "minimalista corporativo, espacio negativo, composición geométrica, paleta Trichter (negro y dorado), tipografía Poppins si hay texto en imagen, aire premium pero no aspiracional vacío, fotografía o render arquitectónico de alta calidad, sin stock típico de agencia",
+  "_brand_assets_instruction": "Leer context/assets.md antes de generar prompts. Si hay UUIDs registrados, incluir el logo correcto en medias[] según el fondo de la imagen (fondo oscuro → logo-blanco; fondo claro → logo-negro-dorado). Si los UUIDs dicen _PENDIENTE_, omitir medias[] y avisar al usuario.",
   "pieces": [
     {
       "id": "TC-2026-05-04-001",
@@ -16,6 +17,12 @@
       "resolution": "2K",
       "prompt": "[Prompt detallado: escena, composición, paleta Trichter, mood, espacio negativo si requiere texto encima, referencias estilísticas, qué NO incluir]",
       "negative_prompt": "stock photo genérica, sonrisas forzadas corporativas, gráficos cliché de agencia, colores fuera de paleta",
+      "medias": [
+        {
+          "uuid": "[UUID_LOGO — ver context/assets.md, elegir según fondo de imagen]",
+          "role": "style_reference"
+        }
+      ],
       "notes": "[Cualquier consideración especial: si necesita persona usar soul_2, si requiere espacio para texto en cuadrante superior, etc.]"
     },
     {
@@ -30,28 +37,52 @@
           "slide_number": 1,
           "role": "hook",
           "prompt": "[Prompt slide 1 — visual de impacto que acompaña el hook]",
-          "negative_prompt": "..."
+          "negative_prompt": "...",
+          "medias": [
+            {
+              "uuid": "[UUID_LOGO_CONTRASTE_ALTO]",
+              "role": "style_reference"
+            }
+          ]
         },
         {
           "slide_number": 2,
           "role": "desarrollo",
           "prompt": "[Prompt slide 2]",
-          "negative_prompt": "..."
+          "negative_prompt": "...",
+          "medias": [
+            {
+              "uuid": "[UUID_LOGO_CONTRASTE_ALTO]",
+              "role": "style_reference"
+            }
+          ]
         },
         {
           "slide_number": 3,
           "role": "desarrollo",
           "prompt": "[Prompt slide 3]",
-          "negative_prompt": "..."
+          "negative_prompt": "...",
+          "medias": [
+            {
+              "uuid": "[UUID_LOGO_CONTRASTE_ALTO]",
+              "role": "style_reference"
+            }
+          ]
         },
         {
           "slide_number": 4,
           "role": "cierre + CTA visual",
-          "prompt": "[Prompt slide 4 — debe poder llevar logo/CTA]",
-          "negative_prompt": "..."
+          "prompt": "[Prompt slide 4 — espacio negativo en cuadrante inferior para logo Trichter y CTA]",
+          "negative_prompt": "...",
+          "medias": [
+            {
+              "uuid": "[UUID_LOGO_CONTRASTE_ALTO]",
+              "role": "style_reference"
+            }
+          ]
         }
       ],
-      "notes": "..."
+      "notes": "S4 siempre lleva espacio para logo + CTA. Elegir UUID de logo con mayor contraste vs fondo del slide."
     }
   ]
 }

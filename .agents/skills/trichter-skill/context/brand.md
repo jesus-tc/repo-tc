@@ -5,7 +5,7 @@
 
 ## Identidad visual
 
-**Logos:** disponibles en `assets/logos/` (18 variantes: símbolo solo, símbolo + texto, vertical, horizontal, sobre negro, sobre blanco, app icon, etc.)
+**Logos:** disponibles en `assets/logos/` (18 variantes: símbolo solo, símbolo + texto, vertical, horizontal, sobre negro, sobre blanco, app icon, etc.). Los UUIDs de Higgsfield para usar en generación automática están en `context/assets.md`.
 
 **Paleta:**
 - Primario oscuro: `#0f1014` (negro corporativo)

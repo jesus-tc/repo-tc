@@ -32,8 +32,14 @@ Si falta el tema, preguntar. Si faltan los demás, asumir defaults y avisar al u
 1. `context/brand.md`
 2. `context/audience.md`
 3. `context/references.md`
+4. `context/assets.md`
 
-Estos archivos definen voz, audiencia, palabras prohibidas, cuentas de inspiración. **Todo el output del skill debe respetarlos.**
+Estos archivos definen voz, audiencia, palabras prohibidas, cuentas de inspiración y UUIDs de brand assets. **Todo el output del skill debe respetarlos.**
+
+**Paso 0B — verificar brand assets:**
+Revisar `context/assets.md`. Si hay UUIDs registrados (no dicen `_PENDIENTE_`), los prompts de Fase 3A los incluirán automáticamente en el parámetro `medias[]`. Si todos están pendientes, notificar al usuario:
+
+> "⚠️ Los logos de Trichter no están subidos a Higgsfield todavía. Las imágenes se generarán con paleta y descripción textual de la marca, pero sin el logo como referencia visual. Para subirlos: compartí los archivos de logo y los subo con `media_upload`."
 
 ---
 
@@ -127,6 +133,15 @@ Presentar la matriz y preguntar:
 - Resolución: 2K mínimo.
 - Cada prompt debe incluir: descripción de escena, paleta Trichter (negro #0f1014, dorado #d7ae49, blanco #fff), referencias estilísticas, espacio negativo para texto si aplica.
 - Para carruseles: un prompt por slide, con coherencia visual entre slides (misma paleta, misma lógica de composición, variación en escena).
+
+**3A — Brand asset references (OBLIGATORIO si assets.md tiene UUIDs):**
+- Leer `context/assets.md` para obtener los UUIDs de logos registrados.
+- Incluir en cada llamada `generate_image` el parámetro `medias`:
+  - Fondo oscuro → UUID de `logo-blanco` o `simbolo-solo-blanco`
+  - Fondo claro → UUID de `logo-negro-dorado` o `simbolo-solo-dorado`
+  - Role: `"style_reference"` para que Higgsfield ancle la identidad visual
+- S4 de carruseles (slide de cierre) SIEMPRE incluir logo de alto contraste + dejar espacio negativo en esquina inferior derecha para el copy de CTA en Canva.
+- Si algún UUID dice `_PENDIENTE_`, omitir `medias[]` para esa generación y agregar nota en `execution-log.json`.
 
 **3B — Copy de LinkedIn:**
 - Hook (primera línea, debajo de 80 caracteres, sin emoji al inicio)
