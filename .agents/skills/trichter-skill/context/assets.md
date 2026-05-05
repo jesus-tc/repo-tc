@@ -2,67 +2,82 @@
 
 > Fuente de verdad para los UUIDs de medias subidas a Higgsfield.
 > El skill los incluye automáticamente como `medias[]` en cada llamada a `generate_image`.
-> Para registrar nuevos assets: subir con `media_upload` y agregar el UUID aquí.
+> Estado: IDs reservados. Ver sección "Upload pendiente" al final.
 
 ---
 
 ## Logos principales
 
-| Variante | Descripción | UUID Higgsfield | Rol en generate_image |
-|----------|-------------|-----------------|----------------------|
-| logo-negro-dorado | Símbolo + texto sobre fondo negro | _PENDIENTE_ | `style_reference` |
-| logo-blanco | Símbolo + texto sobre fondo blanco | _PENDIENTE_ | `style_reference` |
-| simbolo-solo-dorado | Solo el símbolo sin texto | _PENDIENTE_ | `style_reference` |
-| simbolo-solo-blanco | Solo el símbolo sin texto, fondo negro | _PENDIENTE_ | `style_reference` |
+| Variante | Descripción | UUID Higgsfield | Rol | Estado |
+|----------|-------------|-----------------|-----|--------|
+| `simbolo-dorado-blanco` | Símbolo TC dorado sobre fondo blanco, cuadrado completo | `ccc65308-5db0-40da-8cee-4dbeeed437c9` | `style_reference` | ⏳ pendiente upload |
+| `simbolo-dorado-blanco-v2` | Símbolo TC dorado sobre blanco, variante compacta | `c2d69858-350d-481e-8786-2b35c452a813` | `style_reference` | ⏳ pendiente upload |
+| `simbolo-horizontal-dorado` | Símbolo dorado alineado a izquierda, fondo blanco | `ef8453f6-7990-46fb-8caf-9f5200288f9f` | `style_reference` | ⏳ pendiente upload |
+| `simbolo-blanco-transparente` | Símbolo blanco sobre fondo transparente (para fondos oscuros) | `c3047e91-10fb-457c-b5fd-942174c1e43d` | `style_reference` | ⏳ pendiente upload |
 
 ---
 
-## Cómo subir nuevos assets
+## Regla de selección de logo
 
-```
-# Desde Claude Code, usar la herramienta MCP Higgsfield:
-mcp__higgsfield__media_upload(file_path="/ruta/al/logo.png")
-# → devuelve { uuid: "xxxx-...", url: "..." }
-# Agregar el UUID a la tabla de arriba
-```
+- **Fondo oscuro** (`#0f1014`, negro, gris oscuro): usar `simbolo-blanco-transparente` → `c3047e91-10fb-457c-b5fd-942174c1e43d`
+- **Fondo claro** (`#ffffff`, blanco, gris claro): usar `simbolo-dorado-blanco` → `ccc65308-5db0-40da-8cee-4dbeeed437c9`
+- **S4 de carrusel** (slide de cierre/CTA): siempre usar el logo de mayor contraste + espacio negativo en esquina inferior derecha
+
+---
+
+## Referencias visuales — Instagram
+
+| Descripción | UUID Higgsfield | Rol | Estado |
+|-------------|-----------------|-----|--------|
+| Post Instagram referencia 1 (carrusel de datos) | _pendiente upload_ | `style_reference` | — |
+| Post Instagram referencia 2 (single tipográfico) | _pendiente upload_ | `style_reference` | — |
+| Post Instagram referencia 3 | _pendiente upload_ | `style_reference` | — |
+| Post Instagram referencia 4 | _pendiente upload_ | `style_reference` | — |
+
+> Para agregar posts de Instagram como references: compartirlos con Claude y se suben con el mismo flujo.
 
 ---
 
 ## Cómo usar en generate_image
 
-Cuando `assets.md` tiene UUIDs registrados, Phase 3 debe incluir el parámetro `medias` en cada llamada:
-
 ```json
 {
   "medias": [
     {
-      "uuid": "UUID_DEL_LOGO_NEGRO_DORADO",
+      "uuid": "c3047e91-10fb-457c-b5fd-942174c1e43d",
       "role": "style_reference"
     }
   ]
 }
 ```
 
-**Regla de selección de logo:**
-- Si el fondo de la imagen es oscuro (`#0f1014` o variantes): usar `logo-blanco` o `simbolo-solo-blanco`
-- Si el fondo es claro (`#ffffff` o variantes): usar `logo-negro-dorado` o `simbolo-solo-dorado`
-- Para slides de carrusel S4 (cierre/CTA): siempre incluir el logo de mayor contraste con el fondo
+---
+
+## Upload pendiente — instrucciones
+
+Los 4 UUIDs de logo están reservados. Para completar el registro:
+
+1. Renombrar los archivos de logo exactamente así:
+   - `trichter-logo-simbolo-dorado-blanco.png`
+   - `trichter-logo-simbolo-dorado-blanco-v2.png`
+   - `trichter-logo-horizontal-dorado.png`
+   - `trichter-logo-blanco-transparente.png`
+
+2. Correr el script (válido por 24h desde generación):
+   ```bash
+   chmod +x outputs/assets/upload-logos.sh
+   cd /ruta/donde/están/los/logos
+   bash /ruta/al/repo/outputs/assets/upload-logos.sh
+   ```
+
+3. Después del upload, decirle a Claude: "logos subidos" → hace `media_confirm` para cada UUID y actualiza el estado a ✅.
 
 ---
 
-## Referencias visuales adicionales
+## Estado checklist
 
-| Nombre | Descripción | UUID Higgsfield | Rol |
-|--------|-------------|-----------------|-----|
-| _vacío_ | Agregar ejemplos de piezas aprobadas para style reference | — | `style_reference` |
-
----
-
-## Estado de registro
-
-- [ ] logo-negro-dorado subido y UUID registrado
-- [ ] logo-blanco subido y UUID registrado
-- [ ] simbolo-solo-dorado subido y UUID registrado
-- [ ] simbolo-solo-blanco subido y UUID registrado
-
-**Instrucción para el skill:** Si `_PENDIENTE_` aparece en la tabla, omitir el parámetro `medias` en esa generación y notificar al usuario que faltan subir los logos.
+- [ ] `simbolo-dorado-blanco` — upload + confirm
+- [ ] `simbolo-dorado-blanco-v2` — upload + confirm
+- [ ] `simbolo-horizontal-dorado` — upload + confirm
+- [ ] `simbolo-blanco-transparente` — upload + confirm
+- [ ] Posts de Instagram — upload + confirm

@@ -33,6 +33,8 @@ Si falta el tema, preguntar. Si faltan los demás, asumir defaults y avisar al u
 2. `context/audience.md`
 3. `context/references.md`
 4. `context/assets.md`
+5. `context/blog.md`
+6. `context/instagram.md`
 
 Estos archivos definen voz, audiencia, palabras prohibidas, cuentas de inspiración y UUIDs de brand assets. **Todo el output del skill debe respetarlos.**
 
@@ -47,14 +49,16 @@ Revisar `context/assets.md`. Si hay UUIDs registrados (no dicen `_PENDIENTE_`), 
 
 **Objetivo:** detectar formatos y ángulos que están funcionando en LinkedIn entre referentes (no para copiar contenido, sino para inspirar estructura) y combinarlo con contexto sectorial sobre el tema solicitado.
 
-### Sub-fase 1A: Web search sectorial
+### Sub-fase 1A: Web search sectorial + blog Trichter
 
-Búsqueda web sobre el tema solicitado, filtrando por:
+**1A-1 Blog propio (prioridad alta):** intentar fetch de artículos en `context/blog.md` relacionados con el tema. Los datos propios de Trichter tienen mayor credibilidad que benchmarks del sector. Si algún artículo es accesible, extraer datos concretos y marcarlos como "(dato propio Trichter)".
+
+**1A-2 Web search externo:** búsqueda sobre el tema solicitado, filtrando por:
 - Datos recientes (últimos 6 meses) sobre real estate LATAM
 - Casos de éxito o métricas concretas
 - Reportes de proptech, AMPI, AEV, CCRI Argentina, etc.
 
-Output parcial: 5-8 bullets con hechos, datos, fuentes.
+Output parcial: 5-8 bullets con hechos, datos, fuentes. Separar datos propios vs datos sectoriales.
 
 ### Sub-fase 1B: Research en LinkedIn vía Playwright
 
@@ -135,13 +139,16 @@ Presentar la matriz y preguntar:
 - Para carruseles: un prompt por slide, con coherencia visual entre slides (misma paleta, misma lógica de composición, variación en escena).
 
 **3A — Brand asset references (OBLIGATORIO si assets.md tiene UUIDs):**
-- Leer `context/assets.md` para obtener los UUIDs de logos registrados.
-- Incluir en cada llamada `generate_image` el parámetro `medias`:
-  - Fondo oscuro → UUID de `logo-blanco` o `simbolo-solo-blanco`
-  - Fondo claro → UUID de `logo-negro-dorado` o `simbolo-solo-dorado`
-  - Role: `"style_reference"` para que Higgsfield ancle la identidad visual
-- S4 de carruseles (slide de cierre) SIEMPRE incluir logo de alto contraste + dejar espacio negativo en esquina inferior derecha para el copy de CTA en Canva.
-- Si algún UUID dice `_PENDIENTE_`, omitir `medias[]` para esa generación y agregar nota en `execution-log.json`.
+- Leer `context/assets.md` para obtener UUIDs de logos e Instagram registrados.
+- Incluir en cada llamada `generate_image` el parámetro `medias` con máximo 2 referencias:
+  - Referencia 1 (siempre): logo según fondo
+    - Fondo oscuro → `simbolo-blanco-transparente` (`c3047e91-10fb-457c-b5fd-942174c1e43d`)
+    - Fondo claro → `simbolo-dorado-blanco` (`ccc65308-5db0-40da-8cee-4dbeeed437c9`)
+  - Referencia 2 (si disponible): post de Instagram cuyo mood coincida con la pieza
+    - Ver `context/instagram.md` → elegir el post con mood técnico/dato/humano según corresponda
+  - Role para ambos: `"style_reference"`
+- S4 de carruseles (slide de cierre) SIEMPRE incluir logo de alto contraste + espacio negativo en esquina inferior derecha para CTA en Canva.
+- Si algún UUID dice `_PENDIENTE_` o `pendiente upload`, omitir esa referencia específica (usar las que sí están confirmadas) y agregar nota en `execution-log.json`.
 
 **3B — Copy de LinkedIn:**
 - Hook (primera línea, debajo de 80 caracteres, sin emoji al inicio)
