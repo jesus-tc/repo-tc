@@ -1,0 +1,8 @@
+# LinkedIn session y credenciales — NUNCA commitear
+.agents/skills/trichter-skill/scripts/.env
+.agents/skills/trichter-skill/scripts/.linkedin-session/
+.agents/skills/trichter-skill/scripts/.last-run.json
+.agents/skills/trichter-skill/scripts/node_modules/
+
+# Outputs generados (imágenes, etc.)
+outputs/

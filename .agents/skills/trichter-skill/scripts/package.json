@@ -1,0 +1,15 @@
+{
+  "name": "trichter-linkedin-research",
+  "version": "1.0.0",
+  "description": "LinkedIn research script for Trichter skill",
+  "main": "linkedin-research.js",
+  "scripts": {
+    "setup": "npx playwright install chromium --with-deps",
+    "verify": "node linkedin-research.js \"test\" --verify",
+    "research": "node linkedin-research.js"
+  },
+  "dependencies": {
+    "playwright": "^1.44.0",
+    "dotenv": "^16.4.5"
+  }
+}
