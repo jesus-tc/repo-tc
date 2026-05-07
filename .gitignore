@@ -1,3 +1,6 @@
+# Apify token — NUNCA commitear
+.env
+
 # LinkedIn session y credenciales — NUNCA commitear
 .agents/skills/trichter-skill/scripts/.env
 .agents/skills/trichter-skill/scripts/.linkedin-session/
